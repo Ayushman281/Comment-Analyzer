@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from backend.process_comments import process_comments 
 import os
 import re
 
@@ -17,8 +18,6 @@ class YouTubeAPI:
     def extract_video_id(self, youtube_url):
         """
         Extract the video ID from a YouTube URL.
-        :param youtube_url: The full YouTube video URL.
-        :return: The video ID as a string.
         """
         match = re.search(r"v=([a-zA-Z0-9_-]{11})", youtube_url)
         if match:
@@ -26,12 +25,9 @@ class YouTubeAPI:
         else:
             raise ValueError("Invalid YouTube URL. Could not extract video ID.")
 
-    def fetch_comments(self, youtube_url, max_results=50):
+    def fetch_comments(self, youtube_url, max_results=5):
         """
         Fetch comments from a YouTube video.
-        :param youtube_url: The full YouTube video URL.
-        :param max_results: The maximum number of comments to fetch (default is 50).
-        :return: A list of comments.
         """
         try:
             video_id = self.extract_video_id(youtube_url)
@@ -52,14 +48,12 @@ class YouTubeAPI:
         except ValueError as e:
             raise Exception(f"Invalid YouTube URL: {e}")
 
-# Initialize the YouTubeAPI class
 youtube_api = YouTubeAPI()
 
 @youtube_bp.route("/fetch-comments", methods=["POST"])
 def fetch_comments():
     """
-    Endpoint to fetch comments from a YouTube video.
-    Expects a JSON payload with a "youtube_url" field.
+    Endpoint to fetch comments from a YouTube video, preprocess them, and predict sentiment.
     """
     data = request.get_json()
     if not data or "youtube_url" not in data:
@@ -68,7 +62,11 @@ def fetch_comments():
     youtube_url = data["youtube_url"]
     try:
         comments = youtube_api.fetch_comments(youtube_url)
-        return jsonify({"comments": comments}), 200
+
+        results = process_comments(comments)
+
+        return jsonify({"results": results}), 200
+
     except ValueError as e:
         return jsonify({"error": str(e)}), 400
     except Exception as e:
