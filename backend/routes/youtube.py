@@ -10,7 +10,7 @@ youtube_bp = Blueprint("youtube", __name__)
 class YouTubeAPI:
     def __init__(self, api_key=None):
         self.api_key = api_key or os.getenv('YOUTUBE_API_KEY')
-        print(f"Loaded API Key in YouTubeAPI: {self.api_key}")  # Debug print
+        print(f"Loaded API Key in YouTubeAPI: {self.api_key}") 
         if not self.api_key:
             raise ValueError("YouTube API key is required. Set it in the environment variable 'YOUTUBE_API_KEY' or pass it as a parameter.")
         self.youtube = build("youtube", "v3", developerKey=self.api_key)

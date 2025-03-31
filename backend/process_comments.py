@@ -7,8 +7,6 @@ sentiment_analyzer = SentimentAnalyzer()
 def process_comments(comments):
     """
     Process a list of comments by preprocessing them and predicting sentiment.
-    :param comments: List of raw comments.
-    :return: List of dictionaries containing original comments, cleaned comments, and sentiment results.
     """
     processed_comments = []
     sentiment_results = []

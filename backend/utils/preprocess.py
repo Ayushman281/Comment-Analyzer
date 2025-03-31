@@ -122,8 +122,7 @@ class Preprocessor:
         """
         try:
             language = detect(text)
-            # If the detected language is "unknown" or the text is too short, assume it's English
-            if language == "unknown" or len(text.split()) < 3:  # Adjust the threshold as needed
+            if language == "unknown" or len(text.split()) < 3: 
                 return "en"
             return language
         except LangDetectException:
@@ -133,16 +132,11 @@ class Preprocessor:
         """
         Preprocess a single comment.
         """
-        # Detect the language
         language = self.detect_language(comment)
-        # Check if translation is needed (if the language is not English)
         needs_translation = language != "en"
 
         if needs_translation:
-            # Translate the comment into English
             comment = self.translator.translate_to_english(comment)
-
-        # Clean the text (only after ensuring it's in English)
         cleaned_text = self.clean_text(comment)
 
         return cleaned_text
