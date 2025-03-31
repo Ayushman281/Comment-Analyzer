@@ -17,3 +17,10 @@ langdetect==1.0.9
 googletrans==4.0.0-rc1
 spacy==3.5.0
 nltk==3.8.1
+opendatasets==0.1.22
+contractions==0.1.73
+datasets==2.14.4
+ipython==8.14.0
+notebook
+ipykernel
+pytohn==3.11.7
