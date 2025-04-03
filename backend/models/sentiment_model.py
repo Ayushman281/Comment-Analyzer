@@ -1,6 +1,5 @@
 from transformers import TFBertForSequenceClassification, BertTokenizer
 import tensorflow as tf
-
 class SentimentAnalyzer:
     def __init__(self, model_name="bert-base-uncased"):
         self.tokenizer = BertTokenizer.from_pretrained(model_name)
