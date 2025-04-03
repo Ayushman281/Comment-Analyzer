@@ -4,14 +4,17 @@ import axios from 'axios';
 // Main App Component
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
-      <div className="max-w-4xl mx-auto">
-        <header className="text-center mb-10">
-          <h1 className="text-3xl font-bold text-indigo-800 mb-2">YouTube Comment Sentiment Analyzer</h1>
-          <p className="text-gray-600">Analyze the sentiment of comments from any YouTube video</p>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 py-12 px-4">
+      <div className="max-w-5xl mx-auto">
+        <header className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-indigo-900 mb-3">YouTube Comment Sentiment Analyzer</h1>
+          <p className="text-lg text-indigo-700">Discover the emotional tone behind any YouTube video's comments</p>
         </header>
         <CommentAnalyzer />
       </div>
+      <footer className="mt-16 text-center text-gray-500 text-sm">
+        <p>© {new Date().getFullYear()} YouTube Comment Sentiment Analyzer</p>
+      </footer>
     </div>
   );
 }
@@ -50,20 +53,27 @@ function CommentAnalyzer() {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-xl overflow-hidden">
-      <div className="p-6 border-b border-gray-200">
+    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-indigo-100">
+      <div className="p-6 border-b border-indigo-100">
         <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4">
-          <input
-            type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="Paste YouTube URL (e.g., https://www.youtube.com/watch?v=dQw4w9WgXcQ)"
-            className="flex-grow px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
+          <div className="flex-grow relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg className="h-5 w-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <input
+              type="text"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="Paste YouTube URL (e.g., https://www.youtube.com/watch?v=dQw4w9WgXcQ)"
+              className="pl-10 w-full px-4 py-3 rounded-xl border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent shadow-sm"
+            />
+          </div>
           <button
             type="submit"
             disabled={isLoading}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition duration-200 disabled:opacity-70"
+            className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-3 px-8 rounded-xl transition duration-200 disabled:opacity-70 shadow-md"
           >
             {isLoading ? (
               <span className="flex items-center justify-center">
@@ -78,7 +88,7 @@ function CommentAnalyzer() {
             )}
           </button>
         </form>
-        {error && <p className="mt-3 text-red-500">{error}</p>}
+        {error && <p className="mt-3 text-red-500 flex items-center"><span className="mr-2">⚠️</span>{error}</p>}
       </div>
 
       <div className="p-6">
@@ -98,26 +108,28 @@ function CommentAnalyzer() {
 function Instructions() {
   return (
     <div className="text-center py-8">
-      <div className="bg-indigo-50 rounded-lg p-6 inline-block">
-        <svg className="h-12 w-12 text-indigo-600 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <h3 className="text-lg font-medium text-indigo-800 mb-2">How to use this tool:</h3>
-        <ol className="text-left text-gray-600 space-y-2 ml-4">
-          <li className="flex items-start gap-2">
-            <span className="inline-flex items-center justify-center rounded-full bg-indigo-200 h-5 w-5 text-xs font-medium text-indigo-800">1</span>
+      <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-8 inline-block shadow-sm border border-indigo-100">
+        <div className="bg-indigo-100 rounded-full p-4 inline-flex mb-6">
+          <svg className="h-12 w-12 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 className="text-xl font-bold text-indigo-900 mb-4">How to use this tool</h3>
+        <ol className="text-left text-gray-700 space-y-4 max-w-md mx-auto">
+          <li className="flex items-start gap-3">
+            <span className="inline-flex items-center justify-center rounded-full bg-indigo-200 h-6 w-6 text-sm font-bold text-indigo-800 mt-1">1</span>
             <span>Find a YouTube video you want to analyze</span>
           </li>
-          <li className="flex items-start gap-2">
-            <span className="inline-flex items-center justify-center rounded-full bg-indigo-200 h-5 w-5 text-xs font-medium text-indigo-800">2</span>
+          <li className="flex items-start gap-3">
+            <span className="inline-flex items-center justify-center rounded-full bg-indigo-200 h-6 w-6 text-sm font-bold text-indigo-800 mt-1">2</span>
             <span>Copy the video URL from your browser</span>
           </li>
-          <li className="flex items-start gap-2">
-            <span className="inline-flex items-center justify-center rounded-full bg-indigo-200 h-5 w-5 text-xs font-medium text-indigo-800">3</span>
+          <li className="flex items-start gap-3">
+            <span className="inline-flex items-center justify-center rounded-full bg-indigo-200 h-6 w-6 text-sm font-bold text-indigo-800 mt-1">3</span>
             <span>Paste the URL in the input field above</span>
           </li>
-          <li className="flex items-start gap-2">
-            <span className="inline-flex items-center justify-center rounded-full bg-indigo-200 h-5 w-5 text-xs font-medium text-indigo-800">4</span>
+          <li className="flex items-start gap-3">
+            <span className="inline-flex items-center justify-center rounded-full bg-indigo-200 h-6 w-6 text-sm font-bold text-indigo-800 mt-1">4</span>
             <span>Click "Analyze Comments" to see sentiment results</span>
           </li>
         </ol>
@@ -129,9 +141,13 @@ function Instructions() {
 // Loading State Component
 function LoadingState() {
   return (
-    <div className="flex flex-col items-center justify-center py-12">
-      <div className="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
-      <p className="text-gray-600">Fetching and analyzing comments...</p>
+    <div className="flex flex-col items-center justify-center py-16">
+      <div className="relative">
+        <div className="w-20 h-20 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-6"></div>
+        <div className="absolute top-0 left-0 w-20 h-20 border-4 border-transparent border-r-purple-500 rounded-full animate-pulse opacity-75"></div>
+      </div>
+      <p className="text-lg text-indigo-700 font-medium">Fetching and analyzing comments...</p>
+      <p className="text-gray-500 mt-2">This may take a few moments depending on the number of comments</p>
     </div>
   );
 }
@@ -158,52 +174,81 @@ function ResultsDisplay({ results }) {
   return (
     <div>
       {/* Sentiment Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <SentimentCard 
           title="Total Comments" 
           count={totalCount} 
-          color="bg-gray-100" 
+          color="bg-gradient-to-br from-gray-100 to-gray-200" 
           textColor="text-gray-800"
           onClick={() => setActiveTab('all')}
           active={activeTab === 'all'}
+          icon={
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+          }
         />
         <SentimentCard 
           title="Positive" 
           count={positiveCount} 
           percentage={Math.round((positiveCount / totalCount) * 100)}
-          color="bg-green-100" 
+          color="bg-gradient-to-br from-green-100 to-emerald-100" 
           textColor="text-green-800"
           onClick={() => setActiveTab('positive')}
           active={activeTab === 'positive'}
+          icon={
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          }
         />
         <SentimentCard 
           title="Neutral" 
           count={neutralCount} 
           percentage={Math.round((neutralCount / totalCount) * 100)}
-          color="bg-blue-100" 
+          color="bg-gradient-to-br from-blue-100 to-cyan-100" 
           textColor="text-blue-800"
           onClick={() => setActiveTab('neutral')}
           active={activeTab === 'neutral'}
+          icon={
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          }
         />
         <SentimentCard 
           title="Negative" 
           count={negativeCount} 
           percentage={Math.round((negativeCount / totalCount) * 100)}
-          color="bg-red-100" 
+          color="bg-gradient-to-br from-red-100 to-rose-100" 
           textColor="text-red-800"
           onClick={() => setActiveTab('negative')}
           active={activeTab === 'negative'}
+          icon={
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          }
         />
       </div>
 
       {/* Comment List */}
       <div>
-        <h3 className="text-xl font-medium text-gray-800 mb-4">
-          {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Comments ({filteredResults.length})
+        <h3 className="text-2xl font-bold text-indigo-900 mb-6 flex items-center">
+          {activeTab === 'all' && <span className="mr-2">All</span>}
+          {activeTab === 'positive' && <span className="mr-2 text-green-600">Positive</span>}
+          {activeTab === 'neutral' && <span className="mr-2 text-blue-600">Neutral</span>}
+          {activeTab === 'negative' && <span className="mr-2 text-red-600">Negative</span>}
+          Comments ({filteredResults.length})
         </h3>
         
         {filteredResults.length === 0 ? (
-          <p className="text-gray-500 italic py-4">No comments found in this category.</p>
+          <div className="text-center py-10 bg-gray-50 rounded-xl">
+            <svg className="h-16 w-16 text-gray-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p className="text-gray-500 text-lg">No comments found in this category.</p>
+          </div>
         ) : (
           <div className="space-y-4">
             {filteredResults.map((result, index) => (
@@ -217,17 +262,20 @@ function ResultsDisplay({ results }) {
 }
 
 // Sentiment Card Component
-function SentimentCard({ title, count, percentage, color, textColor, onClick, active }) {
+function SentimentCard({ title, count, percentage, color, textColor, onClick, active, icon }) {
   return (
     <div 
-      className={`rounded-lg ${color} p-4 cursor-pointer transition-all ${active ? 'ring-2 ring-indigo-500 transform scale-105' : 'hover:shadow-md'}`}
+      className={`rounded-xl ${color} p-5 cursor-pointer transition-all duration-300 transform hover:scale-105 ${active ? 'ring-2 ring-indigo-500 shadow-lg scale-105' : 'hover:shadow-md'}`}
       onClick={onClick}
     >
-      <h4 className={`font-medium ${textColor}`}>{title}</h4>
+      <div className="flex justify-between items-start mb-3">
+        <h4 className={`font-bold ${textColor} text-lg`}>{title}</h4>
+        {icon && <div className={`${textColor}`}>{icon}</div>}
+      </div>
       <div className="flex items-end justify-between">
-        <span className={`text-2xl font-bold ${textColor}`}>{count}</span>
+        <span className={`text-3xl font-bold ${textColor}`}>{count}</span>
         {percentage !== undefined && (
-          <span className={`${textColor} opacity-80`}>{percentage}%</span>
+          <span className={`${textColor} text-lg font-medium`}>{percentage}%</span>
         )}
       </div>
     </div>
@@ -238,9 +286,42 @@ function SentimentCard({ title, count, percentage, color, textColor, onClick, ac
 function CommentCard({ result }) {
   // Map sentiment label to text and colors
   const sentimentMap = {
-    0: { label: 'Negative', color: 'bg-red-100', textColor: 'text-red-800', barColor: 'bg-red-500' },
-    1: { label: 'Neutral', color: 'bg-blue-100', textColor: 'text-blue-800', barColor: 'bg-blue-500' },
-    2: { label: 'Positive', color: 'bg-green-100', textColor: 'text-green-800', barColor: 'bg-green-500' }
+    0: { 
+      label: 'Negative', 
+      color: 'bg-red-50', 
+      textColor: 'text-red-800', 
+      barColor: 'bg-red-500',
+      borderColor: 'border-red-200',
+      icon: (
+        <svg className="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      )
+    },
+    1: { 
+      label: 'Neutral', 
+      color: 'bg-blue-50', 
+      textColor: 'text-blue-800', 
+      barColor: 'bg-blue-500',
+      borderColor: 'border-blue-200',
+      icon: (
+        <svg className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      )
+    },
+    2: { 
+      label: 'Positive', 
+      color: 'bg-green-50', 
+      textColor: 'text-green-800', 
+      barColor: 'bg-green-500',
+      borderColor: 'border-green-200',
+      icon: (
+        <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      )
+    }
   };
   
   const sentiment = sentimentMap[result.sentiment_label];
@@ -249,18 +330,19 @@ function CommentCard({ result }) {
   const probabilities = result.sentiment_probabilities;
   
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-      <div className="mb-3">
-        <p className="text-gray-800">{result.original_comment}</p>
+    <div className={`bg-white border ${sentiment.borderColor} rounded-xl p-5 hover:shadow-lg transition-shadow duration-300`}>
+      <div className="mb-4">
+        <p className="text-gray-800 text-lg">{result.original_comment}</p>
       </div>
       
-      <div className="flex items-center gap-3">
-        <span className={`px-2 py-1 rounded-full text-sm font-medium ${sentiment.color} ${sentiment.textColor}`}>
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+        <span className={`px-3 py-1 rounded-full text-sm font-bold ${sentiment.color} ${sentiment.textColor} flex items-center gap-1 w-fit`}>
+          {sentiment.icon}
           {sentiment.label}
         </span>
         
         <div className="flex-grow">
-          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden shadow-inner">
             {probabilities.map((prob, i) => (
               <div
                 key={i}
@@ -270,10 +352,10 @@ function CommentCard({ result }) {
             ))}
           </div>
           
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
-            <span>Negative: {Math.round(probabilities[0] * 100)}%</span>
-            <span>Neutral: {Math.round(probabilities[1] * 100)}%</span>
-            <span>Positive: {Math.round(probabilities[2] * 100)}%</span>
+          <div className="flex justify-between text-xs font-medium text-gray-600 mt-2">
+            <span>Negative: <span className="text-red-600 font-bold">{Math.round(probabilities[0] * 100)}%</span></span>
+            <span>Neutral: <span className="text-blue-600 font-bold">{Math.round(probabilities[1] * 100)}%</span></span>
+            <span>Positive: <span className="text-green-600 font-bold">{Math.round(probabilities[2] * 100)}%</span></span>
           </div>
         </div>
       </div>
