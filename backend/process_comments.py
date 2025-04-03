@@ -1,5 +1,6 @@
 from backend.utils.preprocess import Preprocessor
 from backend.models.sentiment_model import SentimentAnalyzer
+import numpy as np
 
 preprocessor = Preprocessor()
 sentiment_analyzer = SentimentAnalyzer()
@@ -17,10 +18,11 @@ def process_comments(comments):
 
     for cleaned_comment in processed_comments:
         sentiment_label, probabilities = sentiment_analyzer.predict(cleaned_comment)
+
         sentiment_results.append({
             "cleaned_comment": cleaned_comment,
             "sentiment_label": int(sentiment_label),
-            "sentiment_probabilities": probabilities.tolist()
+            "sentiment_probabilities": np.round(probabilities, 2).tolist()
         })
 
     response = []
