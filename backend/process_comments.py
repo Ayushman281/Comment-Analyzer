@@ -3,7 +3,10 @@ from backend.models.sentiment_model import SentimentAnalyzer
 import numpy as np
 
 preprocessor = Preprocessor()
-sentiment_analyzer = SentimentAnalyzer()
+
+weights_path = "D:/College/Projects/Comment Analyzer/backend/models/weights"
+sentiment_analyzer = SentimentAnalyzer(weights_path=weights_path)
+
 
 def process_comments(comments):
     """

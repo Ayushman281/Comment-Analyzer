@@ -5,6 +5,5 @@ backend/__pycache__/
 .vscode/
 **/__pycache__/
 data/
-package-lock.json
 node_modules/
-package.json
+backend/models/weights/pytorch_model.bin
