@@ -5,3 +5,6 @@ backend/__pycache__/
 .vscode/
 **/__pycache__/
 data/
+package-lock.json
+node_modules/
+package.json
