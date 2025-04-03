@@ -6,4 +6,3 @@ backend/__pycache__/
 **/__pycache__/
 data/
 node_modules/
-backend/models/weights/pytorch_model.bin
