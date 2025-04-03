@@ -21,3 +21,4 @@ opendatasets==0.1.22
 contractions==0.1.73
 datasets==2.14.4
 flask_cors==5.0.1
+en-core-web-sm==3.5.0
