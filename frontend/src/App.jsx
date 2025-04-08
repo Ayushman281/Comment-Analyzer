@@ -284,6 +284,8 @@ function SentimentCard({ title, count, percentage, color, textColor, onClick, ac
 
 // Comment Card Component
 function CommentCard({ result }) {
+  const [showTranslation, setShowTranslation] = useState(false);
+  
   // Map sentiment label to text and colors
   const sentimentMap = {
     0: { 
@@ -325,14 +327,26 @@ function CommentCard({ result }) {
   };
   
   const sentiment = sentimentMap[result.sentiment_label];
-  
-  // Extract probabilities
   const probabilities = result.sentiment_probabilities;
+  const hasTranslation = result.translated_comment && result.translated_comment !== result.original_comment;
   
   return (
     <div className={`bg-white border ${sentiment.borderColor} rounded-xl p-5 hover:shadow-lg transition-shadow duration-300`}>
       <div className="mb-4">
-        <p className="text-gray-800 text-lg">{result.original_comment}</p>
+        <p className="text-gray-800 text-lg">
+          {showTranslation && hasTranslation ? result.translated_comment : result.original_comment}
+        </p>
+        {hasTranslation && (
+          <button
+            onClick={() => setShowTranslation(!showTranslation)}
+            className="mt-2 text-sm text-indigo-600 hover:text-indigo-800 flex items-center gap-1"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            </svg>
+            {showTranslation ? "Show Original" : "Show Translation"}
+          </button>
+        )}
       </div>
       
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">

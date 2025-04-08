@@ -131,12 +131,21 @@ class Preprocessor:
     def preprocess_comment(self, comment):
         """
         Preprocess a single comment.
+        Returns a tuple of (cleaned_text, translated_comment).
+        If no translation is needed, translated_comment will be empty.
         """
         language = self.detect_language(comment)
-        needs_translation = language != "en"
+        translated_comment = ""
+        
+        # Store original comment for cleaning
+        text_to_clean = comment
+        
+        # Only translate if not in English
+        if language != "en" and language != "unknown":
+            translated_comment = self.translator.translate_to_english(comment)
+            text_to_clean = translated_comment
+        
+        # Clean the appropriate text version
+        cleaned_text = self.clean_text(text_to_clean)
 
-        if needs_translation:
-            comment = self.translator.translate_to_english(comment)
-        cleaned_text = self.clean_text(comment)
-
-        return cleaned_text
+        return cleaned_text, translated_comment
